@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Google tag (gtag.js) -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-GPRFW9DK4Q"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-GPRFW9DK4Q');
+  </script> -->
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Restoration by Generation with Constrained Priors">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Restoration by Generation with Constrained Priors</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <!-- <link rel="stylesheet" href="./static/css/imgcmp.css"> -->
+  <!-- <link rel="stylesheet" href="./static/css/imgctl.css"> -->
+  <!-- <link rel="stylesheet" href="./static/css/project.css"> -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <!-- <script type="text/javascript" src="./static/js/imgcmp.js"></script> -->
+  <!-- <script type="text/javascript" src="./static/js/jquery.event.move-2.0.0.min.js"></script> -->
+  <!-- <script type="text/javascript" src="./static/js/jquery.imgctl-1.0.0.js"></script> -->
+  <script>
+    function initComparisons() {
+      var x, i;
+      /*find all elements with an "overlay" class:*/
+      x = document.getElementsByClassName("img-comp-overlay");
+      for (i = 0; i < x.length; i++) {
+        /*once for each "overlay" element:
+        pass the "overlay" element as a parameter when executing the compareImages function:*/
+        compareImages(x[i]);
+      }
+      function compareImages(img) {
+        var slider, img, clicked = 0, w, h;
+
+        // alert(img.getElementsByTagName('img')[0].style.width);
+        // img.style.removeProperty('max-width');
+
+        
+
+        // img.style.maxWidth = '';
+
+        // img.removeAttribute('style');
+
+        // alert(img.style.maxWidth);
+
+
+        /*get the width and height of the img element*/
+        w = img.offsetWidth;
+        h = img.offsetHeight;
+        /*set the width of the img element to 50%:*/
+        img.style.width = (w / 2) + "px";
+        // img.style.height = h;
+        // alert(img.style.width);
+        // alert(img.style.height);
+        /*create slider:*/
+        slider = document.createElement("DIV");
+        slider.setAttribute("class", "img-comp-slider");
+        /*insert slider*/
+        img.parentElement.insertBefore(slider, img);
+        /*position the slider in the middle:*/
+        slider.style.top = (h / 2) - (slider.offsetHeight / 2) + "px";
+        slider.style.left = (w / 2) - (slider.offsetWidth / 2) + "px";
+        /*execute a function when the mouse button is pressed:*/
+        slider.addEventListener("mousedown", slideReady);
+        /*and another function when the mouse button is released:*/
+        window.addEventListener("mouseup", slideFinish);
+        /*or touched (for touch screens:*/
+        slider.addEventListener("touchstart", slideReady);
+        /*and released (for touch screens:*/
+        window.addEventListener("touchend", slideFinish);
+        function slideReady(e) {
+          /*prevent any other actions that may occur when moving over the image:*/
+          e.preventDefault();
+          /*the slider is now clicked and ready to move:*/
+          clicked = 1;
+          /*execute a function when the slider is moved:*/
+          window.addEventListener("mousemove", slideMove);
+          window.addEventListener("touchmove", slideMove);
+        }
+        function slideFinish() {
+          /*the slider is no longer clicked:*/
+          clicked = 0;
+        }
+        function slideMove(e) {
+          var pos;
+          /*if the slider is no longer clicked, exit this function:*/
+          if (clicked == 0) return false;
+          /*get the cursor's x position:*/
+          pos = getCursorPos(e)
+          /*prevent the slider from being positioned outside the image:*/
+          if (pos < 0) pos = 0;
+          if (pos > w) pos = w;
+          /*execute a function that will resize the overlay image according to the cursor:*/
+          slide(pos);
+        }
+        function getCursorPos(e) {
+          var a, x = 0;
+          e = (e.changedTouches) ? e.changedTouches[0] : e;
+          /*get the x positions of the image:*/
+          a = img.getBoundingClientRect();
+          /*calculate the cursor's x coordinate, relative to the image:*/
+          x = e.pageX - a.left;
+          /*consider any page scrolling:*/
+          x = x - window.pageXOffset;
+          return x;
+        }
+        function slide(x) {
+          /*resize the image:*/
+          img.style.width = x + "px";
+          /*position the slider:*/
+          slider.style.left = img.offsetWidth - (slider.offsetWidth / 2) + "px";
+        }
+      }
+    }
+    </script>
+
+</head>
+<body>
+
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container ">
+      <div class="columns is-centered ">
+        <div class="column has-text-centered" >
+          <h1 class="title is-1 publication-title">Restoration by Generation with Constrained Priors
+		  <br>
+		  <!-- <small>CVPR 2023</small> -->
+		  </h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="">Zheng Ding</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://ceciliavision.github.io">Xuaner Zhang</a><sup>2</sup>,</span>
+            <span class="author-block">
+              <span class="author-block">
+                <a href="https://pages.ucsd.edu/~ztu">Zhuowen Tu</a><sup>1</sup>,
+              </span>
+              <a href="https://likesum.github.io">Zhihao Xia</a><sup>2</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>UC San Diego</span>&nbsp;&nbsp;
+            <span class="author-block"><sup>2</sup>Adobe</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <!-- <span class="link-block">
+                <a href="https://www.youtube.com/watch?v=6ZQbiNiJJEE"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span> -->
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code (Coming Soon)</span>
+                  </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<section class="hero teaser">
+
+
+
+    <!-- <div class="columns is-centered">
+      <div class="column is-8">
+    <h2 class="subtitle has-text-justified" style="font-size:18px;">
+      Interative results. The left two are single-image-based results while the right two are personalize restoration results.
+    </h2>
+    </div></div> -->
+
+<!-- 
+    <br>
+    <br>
+     -->
+    <div class="columns is-centered">
+    <div class="column is-7">
+      <img src="./static/imgs/teaser.png"
+      class="interpolation-image" />
+
+      <h2 class="subtitle has-text-justified" style="font-size:20px;">
+        We propose to use diffusion models to restore real-world low-quality images by constraining the generative space using several anchor images. 
+      </h2>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-11">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified" style="font-size:20px;">
+          The inherent generative power of denoising diffusion models makes them well-suited for image restoration tasks where the objective is to find the optimal high-quality image within the generative space that closely resembles the input image.
+          We propose a method to adapt a pretrained diffusion model for image restoration by simply adding noise to the input image to be restored and then denoise. Our method is based on the observation that the space of a generative model needs to be constrained. We impose this constraint by finetuning the generative model with a set of anchor images that capture the characteristics of the input image. With the constrained space, we can then leverage the sampling strategy used for generation to do image restoration. We evaluate against previous methods and show superior performances on multiple real-world restoration datasets in preserving identity and image quality. 
+          We also demonstrate an important and practical application on personalized restoration, where we use a personal album as the anchor images to constrain the generative space. This approach allows us to produce results that accurately preserve high-frequency details, which previous works are unable to do.        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h3 class="title is-3">Results</h3>
+    <div class="columns" style="width:1054px; margin:0 auto; text-align: center;">
+      <div class="column" >
+        <div class="img-comp-container" style="margin-bottom: 10px;">
+          <div class="img-comp-img">
+            <img src="static/imgs/1_input.png" width="256" height="256">
+          </div>
+          <div class="img-comp-img img-comp-overlay">
+            <img src="static/imgs/1_ours.png" width="256" height="256">
+          </div>
+        </div>
+        <div class="img-comp-container">
+          <div class="img-comp-img">
+            <img src="static/imgs/3_input.png" width="256" height="256">
+          </div>
+          <div class="img-comp-img img-comp-overlay">
+            <img src="static/imgs/3_ours.png" width="256" height="256">
+          </div>
+        </div>
+      </div>
+
+      <div class="column" >
+        <div class="img-comp-container" style="margin-bottom: 10px;">
+          <div class="img-comp-img">
+            <img src="static/imgs/2_input.png" width="256" height="256">
+          </div>
+          <div class="img-comp-img img-comp-overlay">
+            <img src="static/imgs/2_ours.png" width="256" height="256">
+          </div>
+        </div>
+        <div class="img-comp-container">
+          <div class="img-comp-img">
+            <img src="static/imgs/4_input.png" width="256" height="256">
+          </div>
+          <div class="img-comp-img img-comp-overlay">
+            <img src="static/imgs/4_ours.png" width="256" height="256">
+          </div>
+        </div>
+      </div>
+
+      <div class="column" >
+        <div class="img-comp-container" style="margin-bottom: 10px;">
+          <div class="img-comp-img">
+            <img src="static/imgs/f1_input.png" width="256" height="256">
+          </div>
+          <div class="img-comp-img img-comp-overlay">
+            <img src="static/imgs/f1_ours.png" width="256" height="256">
+          </div>
+        </div>
+        <div class="img-comp-container">
+          <div class="img-comp-img">
+            <img src="static/imgs/l1_input.png" width="256" height="256">
+          </div>
+          <div class="img-comp-img img-comp-overlay">
+            <img src="static/imgs/l1_ours.png" width="256" height="256">
+          </div>
+        </div>
+      </div>
+
+      <div class="column" >
+        <div class="img-comp-container" style="margin-bottom: 10px;">
+          <div class="img-comp-img">
+            <img src="static/imgs/f2_input.png" width="256" height="256">
+          </div>
+          <div class="img-comp-img img-comp-overlay">
+            <img src="static/imgs/f2_ours.png" width="256" height="256">
+          </div>
+        </div>
+        <div class="img-comp-container">
+          <div class="img-comp-img">
+            <img src="static/imgs/p2_input.png" width="256" height="256">
+          </div>
+          <div class="img-comp-img img-comp-overlay">
+            <img src="static/imgs/p2_ours.png" width="256" height="256">
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="content has-text-justified" style="font-size:20px;width:1054px; margin:0 auto; text-align: center;">
+    We can slide the images to see the differences between the input (right) and the output (left) more clearly. The first row are single-image restoration results while the second row are personalized restoration results.
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-9">
+        <h2 class="title is-3">Motivation</h2>
+        <img src="./static/imgs/method.png"
+        class="interpolation-image" />    
+        <div class="content has-text-justified" style="font-size:20px;">
+          When sufficient Gaussian noise is added to the low- and high-quality image, 
+          we can bring them to the same distribution. 
+          The low-quality image can thus be denoised with a pre-trained diffusion model.
+          A regular diffusion step lands \(y_t\) in an arbitrary position in the generative space; with space constraining, the path of generation becomes more constrained towards the space defined by the anchor images.
+        </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-11">
+        <h2 class="title is-3">Pipeline</h2>
+        <img src="./static/imgs/pipeline.png"
+        class="interpolation-image" />    
+        <div class="content has-text-justified" style="font-size:20px;">
+          The core of our method is to constrain the generative space by fine-tuning a pre-trained diffusion model with either a generative album or a personal album. The generative album is generated from the input low-quality image with skip guidance to loosely follow the characteristics of the input. Once the generative space is constrained, at inference time, we can simply add noise to the input low-quality image and pass it through the diffusion model to do restoration.
+        </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h3 class="title is-3">Single-Image Restoration</h3>
+    <img src="./static/imgs/results1.png"
+    class="interpolation-image" />
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <h3 class="title is-3">Personalized Restoration</h3>
+    <img src="./static/imgs/p2.png"
+    class="interpolation-image" />
+    <hr />
+    <img src="./static/imgs/p3.png"
+    class="interpolation-image" />
+    <hr />
+    <img src="./static/imgs/p1.png"
+    class="interpolation-image" />
+
+
+  </div>
+</section>
+
+
+
+
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-3">BibTeX</h2>
+    <pre><code>@article{ding2023restoration,
+      title={Restoration by Generation with Constrained Priors},
+      author={Ding, Zheng and Xuaner Zhang and Tu, Zhuowen and Xia, Zhihao},
+      journal={arXiv}
+      year={2023}
+    }</code></pre>
+  </div>
+</section>
+<!-- journal={arXiv preprint arXiv:2308.01316}, -->
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            This website's source code is borrowed from the <a
+            href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+initComparisons();
+</script>
+
+</body>
+</html>
