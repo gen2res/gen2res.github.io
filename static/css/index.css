@@ -219,7 +219,7 @@ small {
 .img-comp-slider {
   position: absolute;
   z-index: 9;
-  /* cursor: ew-resize; */
+  cursor: ew-resize;
   /*set the appearance of the slider:*/
   /* width: 20px;
   height: 20px;
