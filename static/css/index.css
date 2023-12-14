@@ -219,13 +219,21 @@ small {
 .img-comp-slider {
   position: absolute;
   z-index: 9;
-  cursor: ew-resize;
+  /* cursor: ew-resize; */
   /*set the appearance of the slider:*/
-  width: 20px;
+  /* width: 20px;
   height: 20px;
   background-color: rgb(49, 11, 217);
   opacity: 0.7;
-  border-radius: 50%;
+  border-radius: 50%; */
+
+  width: 20px;
+  height: 20px;
+  background-color: #007bff;
+  transform: scale(1.0, 0.5) rotate(45deg);
+  opacity: 1.0;
+  border-radius: 0%;
+  /* margin: 50px auto; */
 }
 
 img {
