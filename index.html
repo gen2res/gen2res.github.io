@@ -53,17 +53,6 @@
       function compareImages(img) {
         var slider, img, clicked = 0, w, h;
 
-        // alert(img.getElementsByTagName('img')[0].style.width);
-        // img.style.removeProperty('max-width');
-
-        
-
-        // img.style.maxWidth = '';
-
-        // img.removeAttribute('style');
-
-        // alert(img.style.maxWidth);
-
 
         /*get the width and height of the img element*/
         w = img.offsetWidth;
@@ -190,7 +179,7 @@
               </span>
               <!-- Video Link. -->
               <!-- <span class="link-block">
-                <a href="https://www.youtube.com/watch?v=6ZQbiNiJJEE"
+                <a href="#"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fab fa-youtube"></i>
@@ -257,6 +246,32 @@
           We propose a method to adapt a pretrained diffusion model for image restoration by simply adding noise to the input image to be restored and then denoise. Our method is based on the observation that the space of a generative model needs to be constrained. We impose this constraint by finetuning the generative model with a set of anchor images that capture the characteristics of the input image. With the constrained space, we can then leverage the sampling strategy used for generation to do image restoration. We evaluate against previous methods and show superior performances on multiple real-world restoration datasets in preserving identity and image quality. 
           We also demonstrate an important and practical application on personalized restoration, where we use a personal album as the anchor images to constrain the generative space. This approach allows us to produce results that accurately preserve high-frequency details, which previous works are unable to do.        </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- <section class="section">
+    <div class="columns is-centered">
+    <div class="column is-9">
+      <h3 class="title is-3">Method Overview</h3>
+      <video autoplay loop muted style="max-width: 100%s;">
+        <source src="static/videos/method.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+
+  </div>
+</section> -->
+
+<section class="hero teaser">
+  <div class="columns is-centered">
+    <div class="column is-7">
+      <h3 class="title is-3">Method Overview</h3>
+      <video autoplay loop muted>
+        <source src="static/videos/method.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
     </div>
   </div>
 </section>
