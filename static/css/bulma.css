@@ -289,7 +289,7 @@ html {
   box-sizing: inherit;
 }
 
-img,
+/* img, */
 video {
   height: auto;
   max-width: 100%;
